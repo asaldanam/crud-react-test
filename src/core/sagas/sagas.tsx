@@ -5,8 +5,8 @@ export function* signIn(action: any) {
   try {
     const token = yield call(fetchAuthToken, action.payload);
     yield put({ type: "AUTH_SET_TOKEN", payload: token.data.token });
-  } catch (error) {
-    yield put({ type: "AUTH_SET_ERROR", payload: error.response.data });
+  } catch (e) {
+    yield put({ type: "AUTH_SET_ERROR", payload: e.response.data.error });
   }
 }
 
