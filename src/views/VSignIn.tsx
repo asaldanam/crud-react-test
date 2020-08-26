@@ -3,7 +3,7 @@ import { RootState } from "core/redux/store";
 import React from "react";
 import { useForm } from "react-hook-form";
 import { useDispatch, useSelector } from "react-redux";
-
+import If from "components/If";
 const ViewSignIn: React.FC = () => {
   const dispatch = useDispatch();
   const literals = useSelector((state: RootState) => state.literals.VSignIn);
@@ -14,23 +14,9 @@ const ViewSignIn: React.FC = () => {
     dispatch(signIn(data));
   };
 
-  console.log(auth);
-
-  const form = {
-    email: "eve.holt@reqres.in",
-    password: "cityslicka",
-  };
-
   return (
     <React.Fragment>
-      <div>Login</div>
-      <div>
-        <div>loading: {JSON.stringify(auth?.loading)}</div>
-        <div>token: {auth?.token}</div>
-        <div>error: {auth?.error}</div>
-      </div>
       <form onSubmit={handleSubmit(onSubmit)}>
-        {/* Email */}
         <input
           name="email"
           type="text"
@@ -42,12 +28,12 @@ const ViewSignIn: React.FC = () => {
             },
           })}
         />
-        <p>
-          {errors?.email?.type === "required" && literals?.errorRequired}
-          {errors?.email?.type === "pattern" && errors.email.message}
-        </p>
-
-        {/* Password */}
+        <If condition={errors?.email?.type === "required"}>
+          <p>{literals?.errorRequired}</p>
+        </If>
+        <If condition={errors?.email?.type === "pattern"}>
+          <p>{literals?.errorEmail}</p>
+        </If>
         <input
           name="password"
           type="password"
@@ -55,16 +41,19 @@ const ViewSignIn: React.FC = () => {
             required: "password",
           })}
         />
-        <p>
-          {errors?.password?.type === "required" && literals?.errorRequired}
-        </p>
-
-        {/* Submit */}
+        <If condition={errors?.password?.type === "required"}>
+          <p>{literals?.errorRequired}</p>
+        </If>
         <button type="submit">{literals?.submitButtonTxt}</button>
       </form>
-      <p
-        dangerouslySetInnerHTML={{ __html: auth?.error && literals?.errorAuth }}
-      ></p>
+
+      <If condition={auth?.error?.status && auth?.error?.status === 400}>
+        <p>
+          {auth?.error?.status === 400
+            ? literals?.errorAuth
+            : literals?.errorServer}
+        </p>
+      </If>
     </React.Fragment>
   );
 };

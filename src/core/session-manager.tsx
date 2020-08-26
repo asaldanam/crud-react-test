@@ -1,14 +1,12 @@
 import React, { useEffect } from "react";
-import { RootState } from "./redux/store";
-import { useSelector, useDispatch } from "react-redux";
+import { useDispatch, useSelector } from "react-redux";
 import { setToken } from "./redux/auth.store";
-
-interface Props {
-  children?: any;
-}
+import { RootState } from "./redux/store";
 
 /** Guarda o recupera el token del Session Storage antes de que resuelva las rutas */
-const SessionManager: React.FC<Props> = (props: Props) => {
+const SessionManager: React.FC<{
+  children?: any;
+}> = ({ children }) => {
   const auth = useSelector((state: RootState) => state.auth);
   const dispatch = useDispatch();
 
@@ -16,12 +14,14 @@ const SessionManager: React.FC<Props> = (props: Props) => {
     const sessionToken = window.localStorage.getItem("token");
     if (sessionToken && !auth.token) {
       dispatch(setToken(sessionToken));
-    } else if (auth.token) {
+      console.log("recover and set token");
+    } else if (!sessionToken && auth.token) {
       window.localStorage.setItem("token", auth.token);
+      console.log("save token to LS");
     }
   }, [auth, dispatch]);
 
-  return props.children;
+  return children;
 };
 
 export default SessionManager;

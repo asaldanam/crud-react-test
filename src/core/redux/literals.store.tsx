@@ -8,8 +8,8 @@ const initialState: SLiterals = {
   VSignIn: {
     errorRequired: "El campo es requerido",
     errorEmail: "No es un email válido",
-    errorAuth:
-      "Usuario no encontrado. Prueba con <strong>janet.weaver@reqres.in<strong>",
+    errorServer: "Error crítico del sistema. Inténtelo más tarde",
+    errorAuth: "Usuario no encontrado. Prueba con janet.weaver@reqres.in",
     submitButtonTxt: "Acceso",
   },
 };
