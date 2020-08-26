@@ -1,8 +1,21 @@
-import { createStore, combineReducers } from "redux";
-import auth from "core/redux/auth-store";
+import { createStore, combineReducers, applyMiddleware } from "redux";
+import createSagaMiddleware from "redux-saga";
+import { composeWithDevTools } from "redux-devtools-extension";
+
+import auth from "./auth.store";
+import literals from "./literals.store";
+
+import rootSaga from "../sagas/sagas";
+
+const sagaMiddleware = createSagaMiddleware();
+
+const rootReducer = combineReducers({ literals, auth });
 
 export default createStore(
-  combineReducers({ auth }),
-  (window as any).__REDUX_DEVTOOLS_EXTENSION__ &&
-    (window as any).__REDUX_DEVTOOLS_EXTENSION__()
+  rootReducer,
+  composeWithDevTools(applyMiddleware(sagaMiddleware))
 );
+
+export type RootState = ReturnType<typeof rootReducer>;
+
+sagaMiddleware.run(rootSaga);
