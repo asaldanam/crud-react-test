@@ -1,23 +1,42 @@
-import React from "react";
+import React, { useRef, useEffect } from "react";
+import { useSelector } from "react-redux";
 import {
+  Redirect,
   Route,
   RouteComponentProps,
   Switch,
   withRouter,
-  Redirect,
 } from "react-router-dom";
-import VSignIn from "views/VSignIn";
 import VList from "views/VList";
+import VSignIn from "views/VSignIn";
 import { RootState } from "./redux/store";
-import { useSelector } from "react-redux";
+import VDetail from "views/VDetail";
 
 const Router = withRouter(({ location, history }: RouteComponentProps) => {
+  // Almaceno la ruta original para en el caso de que el usuario acceda por deep link,
+  // devolverle a esta después de todas las comprobaciones contra Redux
+  const initialRoute = useRef(location.pathname);
+  const token = useSelector((state: RootState) => state.auth.token);
+
+  // Reseteo la ruta guardada en caso de que ya tenga token
+  useEffect(() => {
+    if (token && initialRoute.current !== "/") {
+      initialRoute.current = "/";
+      console.log(initialRoute.current);
+    }
+  }, [token]);
+
   return (
     <Switch location={location}>
-      <RedirectRoute exact path={"/login"} to={"/"} component={VSignIn} />
+      <RedirectRoute
+        exact
+        path={"/login"}
+        to={initialRoute.current === "/login" ? "/" : initialRoute.current}
+        component={VSignIn}
+      />
+      <PrivateRoute path={"/users/:id"} component={VDetail} />
       <PrivateRoute exact path={"/users"} component={VList} />
-      <PrivateRoute exact path={"/detail"} component={VSignIn} />
-      <Redirect from="/" to="/users" />
+      <Redirect from={"/"} to={"/users"} exact />
       <Redirect to="/404" />
     </Switch>
   );
@@ -27,25 +46,29 @@ export default Router;
 
 /** Ruta privada que comprueba si hay token antes de redirigir */
 const PrivateRoute = ({ component: Component, ...rest }: any) => {
-  const hasToken = useSelector((state: RootState) => state.auth.token);
+  const token = useSelector((state: RootState) => state.auth.token);
   return (
     <Route
       {...rest}
       render={(props) =>
-        hasToken ? <Component {...props} /> : <Redirect to="/login" />
+        Boolean(token) ? (
+          <Component {...props} />
+        ) : (
+          <Redirect to={{ pathname: "/login" }} />
+        )
       }
     />
   );
 };
 
-/** Redirige en caso de tener token */
+/** Ruta que redirige en caso de tener token */
 const RedirectRoute = ({ component: Component, to, ...rest }: any) => {
-  const hasToken = useSelector((state: RootState) => state.auth.token);
+  const token = useSelector((state: RootState) => state.auth.token);
   return (
     <Route
       {...rest}
       render={(props) =>
-        hasToken ? <Redirect to={to} /> : <Component {...props} />
+        Boolean(token) ? <Redirect to={to} /> : <Component {...props} />
       }
     />
   );

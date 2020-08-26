@@ -1,11 +1,5 @@
 import { IAuthTokenBody } from "core/services";
 
-/** ACTIONS */
-export const AUTH_SET_TOKEN = "AUTH_SET_TOKEN";
-export const AUTH_SET_ERROR = "AUTH_SET_ERROR";
-export const AUTH_CLEAR_TOKEN = "AUTH_CLEAR_TOKEN";
-export const GET_AUTH = "GET_AUTH";
-
 /** STATE */
 export interface SAuth {
   token?: string | null;
@@ -19,22 +13,34 @@ const initialState: SAuth = {
   loading: false,
 };
 
+/** ACTIONS */
+
+export const AUTH_SET_TOKEN = "[AUTH] Set token";
+export const AUTH_SET_ERROR = "[AUTH] Set error";
+export const AUTH_CLEAR_TOKEN = "[AUTH] Clear token";
+export const GET_AUTH = "[AUTH] Get token";
+
 /** ACTION CREATORS */
 
 /** Obtiene el token de autentificación y lo guarda en el store */
 export function signIn(body: IAuthTokenBody) {
-  return { type: "GET_AUTH", payload: body };
+  return { type: GET_AUTH, payload: body };
 }
 
 /** Setea el token en el store  */
 export function setToken(token: SAuth["token"]) {
-  return { type: "AUTH_SET_TOKEN", payload: token };
+  return { type: AUTH_SET_TOKEN, payload: token };
+}
+
+/** Setea el token en el store  */
+export function setAuthError(error: { message: string; status: number }) {
+  return { type: AUTH_SET_ERROR, payload: error };
 }
 
 /** Limpia el token del store y la sesión del localstorage  */
 export function signOut() {
   window.localStorage.removeItem("token");
-  return { type: "AUTH_SET_TOKEN", payload: undefined };
+  return { type: AUTH_CLEAR_TOKEN, payload: undefined };
 }
 
 /** REDUCERS */
@@ -56,6 +62,13 @@ const auth = function (state = initialState, action: any) {
       return {
         token: null,
         error: action.payload,
+        loading: false,
+      };
+    }
+    case AUTH_CLEAR_TOKEN: {
+      return {
+        token: null,
+        error: null,
         loading: false,
       };
     }

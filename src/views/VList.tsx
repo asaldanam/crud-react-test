@@ -1,15 +1,34 @@
 import { signOut } from "core/redux/auth.store";
-import React from "react";
-import { useDispatch } from "react-redux";
+import { RootState } from "core/redux/store";
+import { SUser } from "core/redux/user-details.store";
+import { getUsers } from "core/redux/users.store";
+import React, { useEffect } from "react";
+import { useDispatch, useSelector } from "react-redux";
+import { Link } from "react-router-dom";
 
 const VList: React.FC = () => {
   const dispatch = useDispatch();
 
+  const { data }: { data: SUser[] } = useSelector(
+    (state: RootState) => state.users
+  );
+
+  useEffect(() => {
+    dispatch(getUsers(1));
+  }, [dispatch]);
+
   return (
     <React.Fragment>
-      <div>
+      <header>
         <button onClick={() => dispatch(signOut())}>Logout </button>
-      </div>
+      </header>
+      <ul>
+        {data.map((user) => (
+          <li key={user.id}>
+            <Link to={`/users/${user.id}`}>{user.first_name}</Link>
+          </li>
+        ))}
+      </ul>
     </React.Fragment>
   );
 };
