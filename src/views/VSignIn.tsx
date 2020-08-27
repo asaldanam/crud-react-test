@@ -1,12 +1,22 @@
-import { signIn } from "core/stores/auth.store";
+import logo from "assets/logo.svg";
+import { Button } from "components/UIButton";
+import { FormGroup, Hint, Input, Label } from "components/UIFormElements";
+import { AppContainer } from "components/UIViewContainer";
 import { RootState } from "core/redux";
+import { signIn } from "core/stores/auth.store";
+import theme, { tablet } from "core/theme";
 import React from "react";
 import { useForm } from "react-hook-form";
 import { useDispatch, useSelector } from "react-redux";
-import If from "components/If";
+import styled from "styled-components";
+import decorationImg from "assets/decoration.svg";
+
 const ViewSignIn: React.FC = () => {
   const dispatch = useDispatch();
   const literals = useSelector((state: RootState) => state.literals.VSignIn);
+  const errorMessages = useSelector(
+    (state: RootState) => state.literals.errorMessages
+  );
   const auth = useSelector((state: RootState) => state.auth);
   const { register, handleSubmit, errors } = useForm();
 
@@ -14,48 +24,96 @@ const ViewSignIn: React.FC = () => {
     dispatch(signIn(data));
   };
 
-  return (
-    <React.Fragment>
-      <form onSubmit={handleSubmit(onSubmit)}>
-        <input
-          name="email"
-          type="text"
-          ref={register({
-            required: "Required",
-            pattern: {
-              value: /^[A-Z0-9._%+-]+@[A-Z0-9.-]+\.[A-Z]{2,}$/i,
-              message: literals?.errorEmail,
-            },
-          })}
-        />
-        <If condition={errors?.email?.type === "required"}>
-          <p>{literals?.errorRequired}</p>
-        </If>
-        <If condition={errors?.email?.type === "pattern"}>
-          <p>{literals?.errorEmail}</p>
-        </If>
-        <input
-          name="password"
-          type="password"
-          ref={register({
-            required: "password",
-          })}
-        />
-        <If condition={errors?.password?.type === "required"}>
-          <p>{literals?.errorRequired}</p>
-        </If>
-        <button type="submit">{literals?.submitButtonTxt}</button>
-      </form>
+  console.log(errorMessages);
 
-      <If condition={auth?.error?.status && auth?.error?.status === 400}>
-        <p>
-          {auth?.error?.status === 400
-            ? literals?.errorAuth
-            : literals?.errorServer}
-        </p>
-      </If>
-    </React.Fragment>
+  return (
+    <Container>
+      <AppContainer>
+        <Form onSubmit={handleSubmit(onSubmit)} autoComplete="off">
+          <Logo src={logo} alt="logo" />
+          <FormGroup>
+            <Label htmlFor="email" hidden>
+              {literals.emailLabel}
+            </Label>
+            <Input
+              name="email"
+              type="text"
+              placeholder={literals.emailLabel}
+              ref={register({
+                required: errorMessages?.required,
+                pattern: {
+                  value: /^[A-Z0-9._%+-]+@[A-Z0-9.-]+\.[A-Z]{2,}$/i,
+                  message: errorMessages?.email,
+                },
+              })}
+            />
+            <Hint error={errors?.email?.message} />
+          </FormGroup>
+          <FormGroup>
+            <Label htmlFor="password" hidden>
+              {literals.passwordLabel}
+            </Label>
+            <Input
+              name="password"
+              type="password"
+              placeholder={literals.passwordLabel}
+              ref={register({
+                required: errorMessages?.required,
+              })}
+            />
+            <Hint error={errors?.password?.message} />
+          </FormGroup>
+          <Hint
+            center
+            error={
+              auth?.error?.status &&
+              (auth?.error?.status === 400
+                ? literals?.errorAuth
+                : literals?.errorServer)
+            }
+          />
+          <Button type="submit" loading={auth.loading} disabled={auth.loading}>
+            {literals?.submitButtonTxt}
+          </Button>
+        </Form>
+        <Decoration src={decorationImg} alt="decoration" role="presentation" />
+      </AppContainer>
+    </Container>
   );
 };
 
 export default ViewSignIn;
+
+const Logo = styled.img`
+  width: 14rem;
+  display: block;
+  margin: 0 auto 3rem auto;
+`;
+
+const Form = styled.form`
+  display: flex;
+  flex-flow: column;
+  place-items: center center;
+  margin: 0 auto;
+  width: 100%;
+  max-width: 24rem;
+  padding: 3rem 1rem 0 1rem;
+  padding-top: 15vh;
+  ${tablet} {
+    padding-top: 20vh;
+    /* margin-top: 20vh; */
+  }
+`;
+
+const Container = styled.div`
+  height: 100%;
+  background-image: ${`linear-gradient(180deg, ${theme.color.darker} 0%, ${theme.color.medium} 100%)`};
+`;
+
+const Decoration = styled.img`
+  position: absolute;
+  left: 0;
+  bottom: 0;
+  width: 100%;
+  opacity: 0.1;
+`;

@@ -1,16 +1,21 @@
 type literals = { [key: string]: string };
 export interface ILiteralsState {
+  errorMessages: literals;
   VSignIn: literals;
 }
 
 /** STATE */
 const initialState: ILiteralsState = {
+  errorMessages: {
+    required: "El campo es requerido",
+    email: "No es un email válido",
+  },
   VSignIn: {
-    errorRequired: "El campo es requerido",
-    errorEmail: "No es un email válido",
     errorServer: "Error crítico del sistema. Inténtelo más tarde",
-    errorAuth: "Usuario no encontrado. Prueba con janet.weaver@reqres.in",
+    errorAuth: "Usuario no encontrado. Usa janet.weaver@reqres.in",
     submitButtonTxt: "Acceso",
+    emailLabel: "Correo electrónico",
+    passwordLabel: "Contraseña",
   },
 };
 

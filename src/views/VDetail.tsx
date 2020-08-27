@@ -1,15 +1,15 @@
-import If from "components/If";
-import { signOut } from "core/stores/auth.store";
+import { If } from "components/UIIf";
 import { RootState } from "core/redux";
+import { signOut } from "core/stores/auth.store";
 import {
   getUserDetails,
-  requestUpdateUser,
   requestDeleteUser,
+  requestUpdateUser,
 } from "core/stores/user-details.store";
 import React, { useEffect } from "react";
+import { useForm } from "react-hook-form";
 import { useDispatch, useSelector } from "react-redux";
 import { useHistory, useParams } from "react-router-dom";
-import { useForm } from "react-hook-form";
 
 const VDetail: React.FC = () => {
   const dispatch = useDispatch();
