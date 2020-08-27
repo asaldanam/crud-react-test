@@ -1,5 +1,5 @@
-import { signIn } from "core/redux/auth.store";
-import { RootState } from "core/redux/store";
+import { signIn } from "core/stores/auth.store";
+import { RootState } from "core/redux";
 import React from "react";
 import { useForm } from "react-hook-form";
 import { useDispatch, useSelector } from "react-redux";

@@ -1,5 +1,7 @@
+import { IUserUpdateBody } from "core/http-services";
+
 /** STATE */
-export interface SUser {
+export interface IUser {
   id?: number;
   email?: string;
   first_name?: string;
@@ -7,13 +9,13 @@ export interface SUser {
   avatar?: string;
 }
 
-interface SUserState extends SUser {
+interface IUserState extends IUser {
   loading: "fetching" | "updating" | "deleteing" | null;
   deleted?: boolean;
   error?: { message: string; status: number };
 }
 
-const initialState: SUserState = {
+const initialState: IUserState = {
   loading: null,
 };
 
@@ -37,16 +39,12 @@ export function getUserDetails(userId: number) {
 }
 
 /** Setea el detalle de usuario en el store de Redux */
-export function setUserDetails(userDetail: SUser) {
+export function setUserDetails(userDetail: IUser) {
   return { type: SET_USER_DETAIL, payload: userDetail };
 }
 
 /** Realiza el PUT al usuario */
-export function requestUpdateUser(payload: {
-  userId: number;
-  name?: string;
-  job?: string;
-}) {
+export function requestUpdateUser(payload: IUserUpdateBody) {
   return { type: REQUEST_UPDATE_USER, payload };
 }
 
@@ -56,11 +54,7 @@ export function requestDeleteUser(userId: number) {
 }
 
 /** Actualiza el user en el store de Redux */
-export function updateUser(payload: {
-  updatedAt: string;
-  name?: string;
-  job?: string;
-}) {
+export function updateUser(payload: IUserUpdateBody) {
   return { type: UPDATE_USER, payload };
 }
 

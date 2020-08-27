@@ -1,7 +1,7 @@
-import { signOut } from "core/redux/auth.store";
-import { RootState } from "core/redux/store";
-import { SUser } from "core/redux/user-details.store";
-import { getUsers } from "core/redux/users.store";
+import { signOut } from "core/stores/auth.store";
+import { RootState } from "core/redux";
+import { IUser } from "core/stores/user-details.store";
+import { getUsers } from "core/stores/users.store";
 import React, { useEffect } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { Link } from "react-router-dom";
@@ -9,7 +9,7 @@ import { Link } from "react-router-dom";
 const VList: React.FC = () => {
   const dispatch = useDispatch();
 
-  const { data }: { data: SUser[] } = useSelector(
+  const { data }: { data: IUser[] } = useSelector(
     (state: RootState) => state.users
   );
 
@@ -21,6 +21,7 @@ const VList: React.FC = () => {
     <React.Fragment>
       <header>
         <button onClick={() => dispatch(signOut())}>Logout </button>
+        <h1>Users</h1>
       </header>
       <ul>
         {data.map((user) => (

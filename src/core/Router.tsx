@@ -9,7 +9,7 @@ import {
 } from "react-router-dom";
 import VList from "views/VList";
 import VSignIn from "views/VSignIn";
-import { RootState } from "./redux/store";
+import { RootState } from "./redux";
 import VDetail from "views/VDetail";
 
 const Router = withRouter(({ location, history }: RouteComponentProps) => {
