@@ -1,13 +1,13 @@
 import { IAuthTokenBody } from "core/services";
 
 /** STATE */
-export interface SAuth {
+export interface IAuthState {
   token?: string | null;
   error?: string | null;
   loading: boolean;
 }
 
-const initialState: SAuth = {
+const initialState: IAuthState = {
   token: null,
   error: null,
   loading: false,
@@ -28,7 +28,7 @@ export function signIn(body: IAuthTokenBody) {
 }
 
 /** Setea el token en el store  */
-export function setToken(token: SAuth["token"]) {
+export function setToken(token: IAuthState["token"]) {
   return { type: AUTH_SET_TOKEN, payload: token };
 }
 

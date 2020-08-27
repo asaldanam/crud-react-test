@@ -28,16 +28,14 @@ export async function fetchUserDetail(userId: number) {
   return response;
 }
 
-/** Actualiza los datos del usuario */
-export async function updateUserCall({
-  userId,
-  name,
-  job,
-}: {
+export interface IUserUpdateBody {
   userId: number;
   name?: string;
   job?: string;
-}) {
+}
+
+/** Actualiza los datos del usuario */
+export async function updateUserCall({ userId, name, job }: IUserUpdateBody) {
   const response = await axios.put(`${URL_PATH}/users/${userId}`, {
     name,
     job,

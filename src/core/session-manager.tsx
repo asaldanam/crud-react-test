@@ -1,7 +1,7 @@
 import React, { useEffect } from "react";
 import { useDispatch, useSelector } from "react-redux";
-import { setToken } from "./redux/auth.store";
-import { RootState } from "./redux/store";
+import { setToken } from "./stores/auth.store";
+import { RootState } from "./redux";
 
 /** Guarda o recupera el token del Session Storage antes de que resuelva las rutas */
 const SessionManager: React.FC<{

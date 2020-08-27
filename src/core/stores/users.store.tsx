@@ -1,16 +1,16 @@
-import { SUser } from "./user-details.store";
+import { IUser } from "./user-details.store";
 
 /** STATE */
 
-export interface SUsers {
+export interface IUsersState {
   loading?: boolean;
   error?: any;
   page: number;
   total_pages: number;
-  data: SUser[];
+  data: IUser[];
 }
 
-const initialState: SUsers = {
+const initialState: IUsersState = {
   loading: false,
   error: null,
   page: 0,
@@ -33,7 +33,7 @@ export function getUsers(page?: number) {
 }
 
 /** Setea el listado de usuarios en el store de Redux */
-export function setUsersList(usersList: SUsers) {
+export function setUsersList(usersList: IUsersState) {
   return { type: SET_USERS_LIST, payload: usersList };
 }
 

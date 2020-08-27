@@ -1,11 +1,11 @@
 import If from "components/If";
-import { signOut } from "core/redux/auth.store";
-import { RootState } from "core/redux/store";
+import { signOut } from "core/stores/auth.store";
+import { RootState } from "core/redux";
 import {
   getUserDetails,
   requestUpdateUser,
   requestDeleteUser,
-} from "core/redux/user-details.store";
+} from "core/stores/user-details.store";
 import React, { useEffect } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { useHistory, useParams } from "react-router-dom";

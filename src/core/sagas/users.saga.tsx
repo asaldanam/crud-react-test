@@ -1,4 +1,4 @@
-import { REQUEST_USER_DETAILS, setUsersList } from "core/redux/users.store";
+import { REQUEST_USER_DETAILS, setUsersList } from "core/stores/users.store";
 import { fetchUsers } from "core/services";
 import { call, put, takeLatest } from "redux-saga/effects";
 

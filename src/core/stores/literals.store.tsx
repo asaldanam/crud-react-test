@@ -1,10 +1,10 @@
 type literals = { [key: string]: string };
-export interface SLiterals {
+export interface ILiteralsState {
   VSignIn: literals;
 }
 
 /** STATE */
-const initialState: SLiterals = {
+const initialState: ILiteralsState = {
   VSignIn: {
     errorRequired: "El campo es requerido",
     errorEmail: "No es un email válido",

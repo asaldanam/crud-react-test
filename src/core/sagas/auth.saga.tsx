@@ -1,4 +1,4 @@
-import { GET_AUTH, setAuthError, setToken } from "core/redux/auth.store";
+import { GET_AUTH, setAuthError, setToken } from "core/stores/auth.store";
 import { fetchAuthToken } from "core/services";
 import { call, put, takeLatest } from "redux-saga/effects";
 

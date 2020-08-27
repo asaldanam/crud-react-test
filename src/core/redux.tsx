@@ -2,12 +2,12 @@ import { createStore, combineReducers, applyMiddleware } from "redux";
 import createSagaMiddleware from "redux-saga";
 import { composeWithDevTools } from "redux-devtools-extension";
 
-import auth from "./auth.store";
-import literals from "./literals.store";
-import users from "./users.store";
-import userDetails from "./user-details.store";
+import auth from "./stores/auth.store";
+import literals from "./stores/literals.store";
+import users from "./stores/users.store";
+import userDetails from "./stores/user-details.store";
 
-import rootSaga from "../saga/saga";
+import rootSaga from "./sagas";
 
 const sagaMiddleware = createSagaMiddleware();
 

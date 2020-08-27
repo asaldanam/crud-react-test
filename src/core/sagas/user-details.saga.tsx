@@ -1,14 +1,14 @@
-import { fetchUserDetail, updateUserCall, deleteUserCall } from "core/services";
+import { deleteUserCall, fetchUserDetail, updateUserCall } from "core/services";
 import { call, put, takeLatest } from "redux-saga/effects";
 import {
-  setUserDetails,
-  REQUEST_USER_DETAIL,
-  setUserDetailsError,
-  REQUEST_UPDATE_USER,
-  REQUEST_DELETE_USER,
-  updateUser,
   deleteUser,
-} from "../redux/user-details.store";
+  REQUEST_DELETE_USER,
+  REQUEST_UPDATE_USER,
+  REQUEST_USER_DETAIL,
+  setUserDetails,
+  setUserDetailsError,
+  updateUser,
+} from "../stores/user-details.store";
 
 /** Obtiene el detalle del usuario @saga */
 function* getUserDetailsSaga(action: any) {
