@@ -21,6 +21,7 @@ const VList: React.FC = () => {
     <React.Fragment>
       <header>
         <button onClick={() => dispatch(signOut())}>Logout </button>
+        <h1>Users</h1>
       </header>
       <ul>
         {data.map((user) => (

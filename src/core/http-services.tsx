@@ -30,15 +30,22 @@ export async function fetchUserDetail(userId: number) {
 
 export interface IUserUpdateBody {
   userId: number;
-  name?: string;
-  job?: string;
+  first_name?: string;
+  last_name?: string;
+  email?: string;
 }
 
 /** Actualiza los datos del usuario */
-export async function updateUserCall({ userId, name, job }: IUserUpdateBody) {
+export async function updateUserCall({
+  userId,
+  first_name,
+  last_name,
+  email,
+}: IUserUpdateBody) {
   const response = await axios.put(`${URL_PATH}/users/${userId}`, {
-    name,
-    job,
+    first_name,
+    last_name,
+    email,
   });
   return response;
 }
