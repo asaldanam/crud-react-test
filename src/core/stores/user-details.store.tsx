@@ -1,4 +1,4 @@
-import { IUserUpdateBody } from "core/services";
+import { IUserUpdateBody } from "core/http-services";
 
 /** STATE */
 export interface IUser {

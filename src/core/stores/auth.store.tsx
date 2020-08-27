@@ -1,4 +1,4 @@
-import { IAuthTokenBody } from "core/services";
+import { IAuthTokenBody } from "core/http-services";
 
 /** STATE */
 export interface IAuthState {

@@ -1,5 +1,5 @@
 import { REQUEST_USER_DETAILS, setUsersList } from "core/stores/users.store";
-import { fetchUsers } from "core/services";
+import { fetchUsers } from "core/http-services";
 import { call, put, takeLatest } from "redux-saga/effects";
 
 function* getUsersSaga(action: any) {

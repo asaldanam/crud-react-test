@@ -1,4 +1,8 @@
-import { deleteUserCall, fetchUserDetail, updateUserCall } from "core/services";
+import {
+  deleteUserCall,
+  fetchUserDetail,
+  updateUserCall,
+} from "core/http-services";
 import { call, put, takeLatest } from "redux-saga/effects";
 import {
   deleteUser,
