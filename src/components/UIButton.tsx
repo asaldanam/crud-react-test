@@ -8,6 +8,8 @@ import { ARotate360 } from "animations/keyframes";
 interface IButtonProps extends React.ButtonHTMLAttributes<HTMLButtonElement> {
   children?: ReactNode;
   loading?: boolean;
+  ghost?: boolean;
+  minwidth?: boolean;
 }
 
 export const Button: React.FC<IButtonProps> = ({
@@ -38,23 +40,23 @@ const Spinner = styled.img`
   animation: ${ARotate360} 2s linear infinite;
 `;
 
-const StyledRippleEffect = styled(Ripples)`
+const StyledRippleEffect = styled<any>(Ripples)`
   border-radius: ${theme.borderRadius.main};
-  box-shadow: ${theme.boxShadow.main};
-  width: 100%;
-  max-width: 16rem;
 `;
 
 const StyledButton = styled<any>("button")`
-  text-transform: uppercase;
-  background: ${theme.color.gold};
-  color: ${theme.color.dark};
   cursor: ${({ disabled }) => disabled && "not-allowed"};
-  font-weight: 700;
   display: flex;
+  padding: 1rem 1.25rem;
   justify-content: center;
   align-items: center;
+  line-height: 1.4;
   padding: 1rem 1.25rem;
-  line-height: 1;
+  text-transform: uppercase;
+  font-weight: 700;
   width: 100%;
+  outline: none;
+  min-width: ${({ minwidth }) => (minwidth ? "16rem" : "unset")};
+  background: ${({ ghost }) => (ghost ? "transparent" : theme.color.gold)};
+  color: ${({ ghost }) => (ghost ? theme.color.gold : theme.color.dark)};
 `;

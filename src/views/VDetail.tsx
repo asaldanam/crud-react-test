@@ -1,6 +1,8 @@
+import { Button } from "components/UIButton";
 import { If } from "components/UIIf";
+import { User } from "components/UIUser";
+import { ViewContainer } from "components/UIViewContainer";
 import { RootState } from "core/redux";
-import { signOut } from "core/stores/auth.store";
 import {
   getUserDetails,
   requestDeleteUser,
@@ -9,22 +11,17 @@ import {
 import React, { useEffect } from "react";
 import { useForm } from "react-hook-form";
 import { useDispatch, useSelector } from "react-redux";
-import { useHistory, useParams } from "react-router-dom";
+import { useParams } from "react-router-dom";
+import { FormGroup, Input, Hint } from "components/UIFormElements";
+import { Avatar } from "components/UIAvatar";
+import styled from "styled-components";
+import { tablet } from "core/theme";
 
 const VDetail: React.FC = () => {
   const dispatch = useDispatch();
   const { id } = useParams();
-  const history = useHistory();
   const form = useForm();
-  const {
-    email,
-    first_name,
-    last_name,
-    avatar,
-    error,
-    name,
-    updatedAt,
-  } = useSelector((state: RootState) => state.userDetails);
+  const user = useSelector((state: RootState) => state.userDetails);
 
   const onSubmit = (data: { [key: string]: string }) => {
     dispatch(
@@ -40,59 +37,96 @@ const VDetail: React.FC = () => {
   }, [dispatch, id]);
 
   return (
-    <React.Fragment>
-      <header>
-        <button onClick={() => history.push("/users")}>GoBack</button>
-        <button onClick={() => dispatch(signOut())}>Logout</button>
-        <h1>Detail</h1>
-      </header>
-
-      <If condition={updatedAt}>
-        <p>{updatedAt}</p>
-      </If>
-      <p>{name || `${first_name} ${last_name}`}</p>
-
-      <If condition={!error}>
-        <img src={avatar} alt={"avatar"} />
-        <form onSubmit={form.handleSubmit(onSubmit)}>
-          <input
-            name="first_name"
-            defaultValue={first_name}
-            ref={form.register({ required: "El campo es requerido" })}
-            type="text"
+    <ViewContainer>
+      <If condition={!user.error}>
+        <Header>
+          <Avatar
+            style={{ backgroundImage: `url(${user.avatar})` }}
+            size="7rem"
           />
-          <input
-            name="last_name"
-            defaultValue={last_name}
-            ref={form.register({ required: "El campo es requerido" })}
-            type="text"
-          />
-          <input
-            name="email"
-            defaultValue={email}
-            ref={form.register({
-              required: "El campo es requerido",
-              pattern: {
-                value: /^[A-Z0-9._%+-]+@[A-Z0-9.-]+\.[A-Z]{2,}$/i,
-                message: "asdf",
-              },
-            })}
-            type="email"
-          />
-          <footer>
-            <button onClick={() => dispatch(requestDeleteUser(id))}>
+        </Header>
+        <Form onSubmit={form.handleSubmit(onSubmit)} autoComplete="off">
+          <FormGroup cols="6" sidePadding="1rem">
+            <Input
+              name="first_name"
+              defaultValue={user.first_name}
+              ref={form.register({ required: "El campo es requerido" })}
+              type="text"
+            />
+            <Hint error={form.errors?.first_name?.message} />
+          </FormGroup>
+          <FormGroup cols="6" sidePadding="1rem">
+            <Input
+              name="last_name"
+              defaultValue={user.last_name}
+              ref={form.register({ required: "El campo es requerido" })}
+              type="text"
+            />
+            <Hint error={form.errors?.last_name?.message} />
+          </FormGroup>
+          <FormGroup sidePadding="1rem">
+            <Input
+              name="email"
+              defaultValue={user.email}
+              ref={form.register({
+                required: "El campo es requerido",
+                pattern: {
+                  value: /^[A-Z0-9._%+-]+@[A-Z0-9.-]+\.[A-Z]{2,}$/i,
+                  message: "asdf",
+                },
+              })}
+              type="email"
+            />
+            <Hint error={form.errors?.email?.message} />
+          </FormGroup>
+          <Footer>
+            <Button ghost onClick={() => dispatch(requestDeleteUser(id))}>
               Borrar
-            </button>
-            <button onClick={form.handleSubmit(onSubmit)}>Actualizar</button>
-          </footer>
-        </form>
+            </Button>
+            <Button onClick={form.handleSubmit(onSubmit)}>Actualizar</Button>
+          </Footer>
+        </Form>
       </If>
 
-      <If condition={error?.status === 404}>
+      <If condition={user.error?.status === 404}>
         <p>Error: user {id} not found</p>
       </If>
-    </React.Fragment>
+    </ViewContainer>
   );
 };
+
+const Header = styled.header`
+  display: flex;
+  width: 100%;
+  justify-content: center;
+  align-items: center;
+  padding: 2rem 0;
+`;
+
+const Form = styled.form`
+  display: flex;
+  flex-flow: row wrap;
+  margin: 0 -1rem;
+`;
+
+const Footer = styled.footer`
+  width: 100%;
+  padding: 0 1rem;
+  display: flex;
+  justify-content: center;
+  > *:not(:last-child) {
+    margin-right: 1rem;
+  }
+  > * {
+    width: 100%;
+    ${tablet} {
+      width: auto;
+    }
+  }
+
+  ${tablet} {
+    justify-content: flex-end;
+  }
+`;
 
 export default VDetail;

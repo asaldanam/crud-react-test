@@ -3,8 +3,9 @@ import theme from "core/theme";
 import { AFadeInOpacity } from "animations/keyframes";
 import React, { ReactNode } from "react";
 
-export const FormGroup = styled.div`
-  width: 100%;
+export const FormGroup = styled<any>("div")`
+  width: ${({ cols }) => (cols * 100) / 12 || 100}%;
+  padding: ${({ sidePadding }) => `0 ${sidePadding}`};
 `;
 
 export const Input = styled.input`

@@ -30,7 +30,7 @@ const theme: {
   };
 } = {
   wrapper: {
-    main: "40rem",
+    main: "60rem",
   },
   font: {
     main: "'Lato', sans-serif",

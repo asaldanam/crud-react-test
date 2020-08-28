@@ -7,6 +7,7 @@ export interface IUser {
   first_name?: string;
   last_name?: string;
   avatar?: string;
+  updatedAt?: string;
 }
 
 interface IUserState extends IUser {
@@ -72,7 +73,7 @@ export function setUserDetailsError(error: {
 }
 
 /** REDUCERS */
-const userDetails = function (state = initialState, action: any) {
+const userDetails = function (state = initialState, action: any): IUserState {
   switch (action.type) {
     case REQUEST_USER_DETAIL: {
       return {
@@ -88,7 +89,7 @@ const userDetails = function (state = initialState, action: any) {
     case REQUEST_DELETE_USER: {
       return {
         ...state,
-        loading: "deleting",
+        loading: "deleteing",
       };
     }
     case SET_USER_DETAIL: {

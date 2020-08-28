@@ -38,7 +38,7 @@ export function setUsersList(usersList: IUsersState) {
 }
 
 /** REDUCERS */
-const users = function (state = initialState, action: any) {
+const users = function (state = initialState, action: any): IUsersState {
   switch (action.type) {
     case REQUEST_USER_DETAILS: {
       return {
