@@ -39,6 +39,7 @@ export const Topbar: React.FC<{
             onClick={handleGoBack}
             disabled={!parent}
             style={{ opacity: parent ? "1" : "0" }}
+            aria-label={literals?.goBack}
           >
             <img src={BackIcon} alt="icon" role="presentation" />
             <ActionTxt>{literals?.goBack}</ActionTxt>
@@ -48,7 +49,10 @@ export const Topbar: React.FC<{
             alt="logo"
             style={{ left: parent ? "calc(50% - 48px)" : "1rem" }}
           />
-          <Action onClick={() => dispatch(signOut())}>
+          <Action
+            onClick={() => dispatch(signOut())}
+            aria-label={literals?.goBack}
+          >
             <img src={ExitIcon} alt="icon" role="presentation" />
             <ActionTxt>{literals?.signOut}</ActionTxt>
           </Action>

@@ -42,6 +42,11 @@ button {
   -moz-osx-font-smoothing: inherit;
   -webkit-appearance: none;
   color: inherit;
+  outline: none;
+  transition: box-shadow 0.1s linear;
+  &:focus:not(:active) {
+    box-shadow: 0px 0px 0px 2px var(--color-sky);
+  }
   &::-moz-focus-inner {
     border: 0;
     padding: 0;

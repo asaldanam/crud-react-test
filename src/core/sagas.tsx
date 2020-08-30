@@ -1,4 +1,4 @@
-import { all, call } from "redux-saga/effects";
+import { all } from "redux-saga/effects";
 import watchSignIn from "./sagas/auth.saga";
 import watchGetUsers from "./sagas/users.saga";
 import {
@@ -10,10 +10,10 @@ import {
 // single entry point to start all Sagas at once
 export default function* rootSaga() {
   yield all([
-    call(watchSignIn),
-    call(watchGetUsers),
-    call(watchGetUserDetails),
-    call(watchUpdateUserSaga),
-    call(watchDeleteUserSaga),
+    watchUpdateUserSaga(),
+    watchSignIn(),
+    watchGetUsers(),
+    watchGetUserDetails(),
+    watchDeleteUserSaga(),
   ]);
 }

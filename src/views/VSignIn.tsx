@@ -24,8 +24,6 @@ const ViewSignIn: React.FC = () => {
     dispatch(signIn(data));
   };
 
-  console.log(errorMessages);
-
   return (
     <ViewContainer
       background={`linear-gradient(180deg, ${theme.color.darker} 0%, ${theme.color.medium} 100%)`}
@@ -100,8 +98,8 @@ const Form = styled.form`
   flex-flow: column;
   place-items: center center;
   margin: 0 auto;
-  width: 100%;
   max-width: 24rem;
+  width: 100%;
   padding: 3rem 1rem 0 1rem;
   padding-top: 15vh;
   ${tablet} {

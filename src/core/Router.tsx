@@ -23,7 +23,6 @@ const Router = withRouter(({ location, history }: RouteComponentProps) => {
   useEffect(() => {
     if (token && initialRoute.current !== "/") {
       initialRoute.current = "/";
-      console.log(initialRoute.current);
     }
   }, [token]);
 
@@ -55,7 +54,7 @@ const PrivateRoute = ({ component: Component, ...rest }: any) => {
     <Route
       {...rest}
       render={(props) =>
-        Boolean(token) ? (
+        !!token ? (
           <Component {...props} />
         ) : (
           <Redirect to={{ pathname: "/login" }} />
@@ -72,7 +71,7 @@ const RedirectRoute = ({ component: Component, to, ...rest }: any) => {
     <Route
       {...rest}
       render={(props) =>
-        Boolean(token) ? <Redirect to={to} /> : <Component {...props} />
+        !!token ? <Redirect to={to} /> : <Component {...props} />
       }
     />
   );

@@ -3,17 +3,22 @@ import styled from "styled-components";
 import { Link } from "react-router-dom";
 import theme, { tablet } from "core/theme";
 import { Avatar } from "./UIAvatar";
+import { AFadeInOpacity } from "animations/keyframes";
 
 export const User: React.FC<{
+  index: number;
   id?: number;
   avatar?: string;
   name?: string;
   surname?: string;
   email?: string;
   to?: string;
-}> = ({ id, avatar, name, surname, email }) => {
+}> = ({ id, avatar, name, surname, email, index }) => {
   return (
-    <LinkContainer to={`/users/${id}`}>
+    <LinkContainer
+      to={`/users/${id}`}
+      style={{ animationDelay: 125 + index * 75 + "ms" }}
+    >
       <Container>
         <Avatar style={{ backgroundImage: `url(${avatar})` }} />
         <Data>
@@ -25,10 +30,21 @@ export const User: React.FC<{
   );
 };
 
+export const UserSkeleton = styled.div`
+  height: 64px;
+  ${tablet} {
+    height: 88px;
+    background: ${theme.color.medium}33;
+    border-radius: ${theme.borderRadius.main};
+  }
+`;
+
 const LinkContainer = styled(Link)`
   display: block;
   color: inherit;
   text-decoration: none;
+  opacity: 0;
+  animation: ${AFadeInOpacity} 0.3s linear forwards;
   ${tablet} {
     padding: 0.75rem;
     background: ${theme.color.darker}AA;

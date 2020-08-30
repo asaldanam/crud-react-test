@@ -14,10 +14,8 @@ const SessionManager: React.FC<{
     const sessionToken = window.localStorage.getItem("token");
     if (sessionToken && !auth.token) {
       dispatch(setToken(sessionToken));
-      console.log("recover and set token");
     } else if (!sessionToken && auth.token) {
       window.localStorage.setItem("token", auth.token);
-      console.log("save token to LS");
     }
   }, [auth, dispatch]);
 

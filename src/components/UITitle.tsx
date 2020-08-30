@@ -2,7 +2,7 @@ import styled from "styled-components";
 import theme, { tablet } from "core/theme";
 import decorationImg from "assets/decoration.svg";
 
-export const Title = styled.h1`
+export const Title = styled<any>("h1")`
   /* border-bottom: 1px solid var(--color-medium); */
   background-color: ${theme.color.sky};
   margin: 0 -1rem;
@@ -11,6 +11,7 @@ export const Title = styled.h1`
   text-align: center;
   text-transform: uppercase;
   font-weight: 700;
+  min-height: 31px;
   position: relative;
   :before {
     content: "";
@@ -27,8 +28,9 @@ export const Title = styled.h1`
     background-image: url(${decorationImg});
   }
   ${tablet} {
+    min-height: 39px;
     text-transform: none;
-    text-align: left;
+    text-align: ${({ center }) => (center ? "center" : "left")};
     padding: 0 0 0.25rem 0;
     font-weight: normal;
     font-size: 1.5rem;
