@@ -7,7 +7,7 @@ export interface IUsersState {
   error?: any;
   page: number;
   total_pages: number;
-  data: IUser[];
+  data: IUser[] | null;
 }
 
 const initialState: IUsersState = {
@@ -37,8 +37,13 @@ export function setUsersList(usersList: IUsersState) {
   return { type: SET_USERS_LIST, payload: usersList };
 }
 
+/** Setea el código de error en el store de Redux */
+export function setUsersError(error: { message: string; status: number }) {
+  return { type: SET_USERS_ERROR, payload: error };
+}
+
 /** REDUCERS */
-const users = function (state = initialState, action: any) {
+const users = function (state = initialState, action: any): IUsersState {
   switch (action.type) {
     case REQUEST_USER_DETAILS: {
       return {
@@ -55,11 +60,10 @@ const users = function (state = initialState, action: any) {
     }
     case SET_USERS_ERROR: {
       return {
+        ...state,
         error: action.payload,
         loading: false,
-        page: 0,
-        total_pages: 0,
-        data: [],
+        data: null,
       };
     }
     default:

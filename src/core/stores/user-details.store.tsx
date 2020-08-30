@@ -7,6 +7,7 @@ export interface IUser {
   first_name?: string;
   last_name?: string;
   avatar?: string;
+  updatedAt?: string;
 }
 
 interface IUserState extends IUser {
@@ -28,6 +29,7 @@ export const UPDATE_USER = "[USER] update user details";
 export const DELETE_USER = "[USER] delete user";
 export const SET_USER_DETAIL = "[USER] set details";
 export const SET_USER_ERROR = "[USER] set error";
+export const CLEAR_USER_DETAIL = "[USER] clear details";
 
 /** ACTION CREATORS */
 
@@ -58,9 +60,14 @@ export function updateUser(payload: IUserUpdateBody) {
   return { type: UPDATE_USER, payload };
 }
 
-/** Borra el user en el store de Redux */
+/** Marca en Redux el user como borrado */
 export function deleteUser() {
   return { type: DELETE_USER };
+}
+
+/** Limpia el detalle de usuario de Redux */
+export function clearUser() {
+  return { type: CLEAR_USER_DETAIL };
 }
 
 /** Setea el error de detalle de usuario en el store de Redux */
@@ -72,7 +79,7 @@ export function setUserDetailsError(error: {
 }
 
 /** REDUCERS */
-const userDetails = function (state = initialState, action: any) {
+const userDetails = function (state = initialState, action: any): IUserState {
   switch (action.type) {
     case REQUEST_USER_DETAIL: {
       return {
@@ -88,7 +95,7 @@ const userDetails = function (state = initialState, action: any) {
     case REQUEST_DELETE_USER: {
       return {
         ...state,
-        loading: "deleting",
+        loading: "deleteing",
       };
     }
     case SET_USER_DETAIL: {
@@ -114,6 +121,11 @@ const userDetails = function (state = initialState, action: any) {
       return {
         loading: null,
         error: action.payload,
+      };
+    }
+    case CLEAR_USER_DETAIL: {
+      return {
+        loading: null,
       };
     }
     default:

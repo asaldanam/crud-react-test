@@ -16,6 +16,7 @@ Compila para producción en la carpeta `build`
 - `Typescript`: Para mantener el código tipado. No he aprovechado todas las características en esta prueba, pero quería mantener tipadas al menos interfaces de entrada y salida propias como las `Props` de los componentes pero sin usar JS + PropTypes.
 - `Axios`: Para abstraer la captura de códigos de error del método `Fetch` nativo y soportar compatibilidad.
 - `React Hook Form`: Abstrae el manejo del estado de los campos.
+- `React Ripples`: Para implementar un ripple effect sin importar material ui.
 
 ### Características y funcionalidades implementadas adicionalmente
 - Mantengo la sesión en el `localStorage` para evitar que se pierda por recargar o cerrar la pestaña. La idea es que el comportamiento con el login sea lo más user friendly posible.
@@ -33,7 +34,8 @@ Compila para producción en la carpeta `build`
 - La configuración de prettier y eslint es la de por defecto.
 
 ### Implementaciones que no se han realizado como especifica la prueba
-- En el PDF de la prueba se especifica que los credenciales van en query params, sin embargo en la documentación de `reqres.in` se especifica que los credenciales van por body. He supuesto que se trataba de algo erróneo en el PDF y lo he implementado tal y como especifica la documentación. 
+- En el PDF de la prueba se especifica que los credenciales van en query params, sin embargo en la documentación de `reqres.in` indica que los credenciales van por body. He supuesto que se trataba de algo erróneo en el PDF y lo he implementado tal y como especifica la documentación.
+- el 99% del CSS está generado a través de styled components ya que entendí que os interesaba particularmente que estuviera maquetado con los sc, aunque algunos estilos globales los he dejado en SCSS para cumplir con el requisito de usar este precompilador.
 
 ## To DO
 - Captura de error en el listado y el detalle

@@ -11,6 +11,7 @@ import VList from "views/VList";
 import VSignIn from "views/VSignIn";
 import { RootState } from "./redux";
 import VDetail from "views/VDetail";
+import { Topbar } from "components/UITopbar";
 
 const Router = withRouter(({ location, history }: RouteComponentProps) => {
   // Almaceno la ruta original para en el caso de que el usuario acceda por deep link,
@@ -22,23 +23,25 @@ const Router = withRouter(({ location, history }: RouteComponentProps) => {
   useEffect(() => {
     if (token && initialRoute.current !== "/") {
       initialRoute.current = "/";
-      console.log(initialRoute.current);
     }
   }, [token]);
 
   return (
-    <Switch location={location}>
-      <RedirectRoute
-        exact
-        path={"/login"}
-        to={initialRoute.current === "/login" ? "/" : initialRoute.current}
-        component={VSignIn}
-      />
-      <PrivateRoute path={"/users/:id"} component={VDetail} />
-      <PrivateRoute exact path={"/users"} component={VList} />
-      <Redirect from={"/"} to={"/users"} exact />
-      <Redirect to="/404" />
-    </Switch>
+    <React.Fragment>
+      <Topbar />
+      <Switch location={location}>
+        <RedirectRoute
+          exact
+          path={"/login"}
+          to={initialRoute.current === "/login" ? "/" : initialRoute.current}
+          component={VSignIn}
+        />
+        <PrivateRoute path={"/users/:id"} component={VDetail} />
+        <PrivateRoute exact path={"/users"} component={VList} />
+        <Redirect from={"/"} to={"/users"} exact />
+        <Redirect to="/404" />
+      </Switch>
+    </React.Fragment>
   );
 });
 
@@ -51,7 +54,7 @@ const PrivateRoute = ({ component: Component, ...rest }: any) => {
     <Route
       {...rest}
       render={(props) =>
-        Boolean(token) ? (
+        !!token ? (
           <Component {...props} />
         ) : (
           <Redirect to={{ pathname: "/login" }} />
@@ -68,7 +71,7 @@ const RedirectRoute = ({ component: Component, to, ...rest }: any) => {
     <Route
       {...rest}
       render={(props) =>
-        Boolean(token) ? <Redirect to={to} /> : <Component {...props} />
+        !!token ? <Redirect to={to} /> : <Component {...props} />
       }
     />
   );

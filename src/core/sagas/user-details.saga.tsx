@@ -22,8 +22,8 @@ function* getUserDetailsSaga(action: any) {
   } catch (e) {
     yield put(
       setUserDetailsError({
-        message: e.response.data.error,
-        status: e.response.status,
+        message: e?.response?.data?.error || "error",
+        status: e?.response?.status || "error",
       })
     );
   }
@@ -37,8 +37,8 @@ function* updateUserSaga(action: any) {
   } catch (e) {
     yield put(
       setUserDetailsError({
-        message: e.response.data.error,
-        status: e.response.status,
+        message: e?.response?.data?.error || "error",
+        status: e?.response?.status || "error",
       })
     );
   }
@@ -52,8 +52,8 @@ function* deleteUserSaga(action: any) {
   } catch (e) {
     yield put(
       setUserDetailsError({
-        message: e.response.data.error,
-        status: e.response.status,
+        message: e?.response?.data?.error || "error",
+        status: e?.response?.status || "error",
       })
     );
   }
