@@ -1,5 +1,4 @@
 import { ACSSStaggerFadeIn } from "animations/animations";
-import decorationImg from "assets/decoration.svg";
 import { Button } from "components/UIButton";
 import {
   AnimatedFormGroup,
