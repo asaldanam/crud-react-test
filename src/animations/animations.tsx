@@ -30,6 +30,15 @@ export const AFadeInFromBottom = keyframes`
   }
 `;
 
+export const AUpdateTextColor = keyframes`
+  0% {
+    color: #a7ff00;
+  }
+  100% {
+    color: ${theme.color.light};
+  }
+`;
+
 export const ACSSStaggerFadeIn = css`
   opacity: 0;
   transform: translateY(20px);
