@@ -18,6 +18,7 @@ import { useForm } from "react-hook-form";
 import { useDispatch, useSelector } from "react-redux";
 import { useHistory, useParams } from "react-router-dom";
 import styled from "styled-components";
+import { AUpdateTextColor } from "animations/animations";
 
 const VDetail: React.FC = () => {
   const dispatch = useDispatch();
@@ -63,7 +64,15 @@ const VDetail: React.FC = () => {
               size="7rem"
             />
           </Header>
-          <Updated style={{ opacity: user.loading === "fetching" ? 0 : 1 }}>
+          <Updated
+            style={{
+              opacity: user.loading === "fetching" ? 0 : 1,
+              animation:
+                user.updatedAt && user.loading !== "updating"
+                  ? `${AUpdateTextColor.getName()} 1s linear forwards`
+                  : `none`,
+            }}
+          >
             Última actualización:{" "}
             <FormatedDate
               date={user.updatedAt}
