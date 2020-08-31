@@ -1,27 +1,28 @@
+import { Error } from "components/UIError";
+import { If } from "components/UIIf";
+import { Pagination } from "components/UIPagination";
+import { Title } from "components/UITitle";
 import { User, UserSkeleton } from "components/UIUser";
 import { ViewContainer } from "components/UIViewContainer";
 import { RootState } from "core/redux";
+import { clearUser } from "core/stores/user-details.store";
 import { getUsers } from "core/stores/users.store";
 import theme, { desktop, tablet } from "core/theme";
-import React, { useEffect, useCallback } from "react";
+import React, { useCallback, useEffect } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import styled from "styled-components";
-import { Title } from "components/UITitle";
-import { clearUser } from "core/stores/user-details.store";
-import { If } from "components/UIIf";
-import { Pagination } from "components/UIPagination";
-import { Error } from "components/UIError";
 
 const VList: React.FC = () => {
   const dispatch = useDispatch();
 
-  let { data: users, total_pages, page, error } = useSelector(
+  const { data: users, total_pages, page, error } = useSelector(
     (state: RootState) => state.users
   );
   const literals = useSelector((state: RootState) => state.literals.VList);
 
-  // Llena el 'users' con 6 skeleton si llega vacío
-  if (users && users.length === 0) users = Array.from({ length: 6 });
+  const hasUsers = users && users.length > 0;
+  const usersEmpty = users && users.length === 0;
+  const skeleton = Array.from({ length: 6 }).fill({});
 
   const changePage = useCallback(
     (direction: "prev" | "next") => {
@@ -35,18 +36,20 @@ const VList: React.FC = () => {
   );
 
   useEffect(() => {
-    dispatch(getUsers(page || 1));
+    if (usersEmpty) {
+      dispatch(getUsers(page));
+    }
     dispatch(clearUser());
-  }, [dispatch, page]);
+  }, [dispatch, page, users, usersEmpty]);
 
   return (
     <ViewContainer>
       <Title>{literals?.title}</Title>
       <If condition={!!users}>
         <List>
-          {users?.map((user, index) => (
-            <Item key={user?.id || index}>
-              <If condition={!!user}>
+          {hasUsers &&
+            users?.map((user, index) => (
+              <Item key={user?.id || index}>
                 <User
                   index={index}
                   id={user?.id}
@@ -56,12 +59,14 @@ const VList: React.FC = () => {
                   email={user?.email}
                   to={`/users/${user?.id}`}
                 />
-              </If>
-              <If condition={!user}>
+              </Item>
+            ))}
+          {usersEmpty &&
+            skeleton.map((_, index) => (
+              <Item key={index}>
                 <UserSkeleton />
-              </If>
-            </Item>
-          ))}
+              </Item>
+            ))}
         </List>
         <Pagination
           total={total_pages}

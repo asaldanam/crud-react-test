@@ -13,7 +13,7 @@ export interface IUsersState {
 const initialState: IUsersState = {
   loading: false,
   error: null,
-  page: 0,
+  page: 1,
   total_pages: 0,
   data: [],
 };
