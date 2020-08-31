@@ -1,7 +1,13 @@
+import { ACSSStaggerFadeIn } from "animations/animations";
 import decorationImg from "assets/decoration.svg";
-import logo from "assets/logo.svg";
 import { Button } from "components/UIButton";
-import { FormGroup, Hint, Input, Label } from "components/UIFormElements";
+import {
+  AnimatedFormGroup,
+  Hint,
+  Input,
+  Label,
+} from "components/UIFormElements";
+import { AnimatedLogo } from "components/UILogo";
 import { ViewContainer } from "components/UIViewContainer";
 import { RootState } from "core/redux";
 import { signIn } from "core/stores/auth.store";
@@ -29,8 +35,10 @@ const ViewSignIn: React.FC = () => {
       background={`linear-gradient(180deg, ${theme.color.darker} 0%, ${theme.color.medium} 100%)`}
     >
       <Form onSubmit={handleSubmit(onSubmit)} autoComplete="off">
-        <Logo src={logo} alt="logo" />
-        <FormGroup>
+        <LogoContainer>
+          <AnimatedLogo />
+        </LogoContainer>
+        <AnimatedFormGroup delay="1500ms">
           <Label htmlFor="email" hidden>
             {literals.emailLabel}
           </Label>
@@ -47,8 +55,8 @@ const ViewSignIn: React.FC = () => {
             })}
           />
           <Hint error={errors?.email?.message} />
-        </FormGroup>
-        <FormGroup>
+        </AnimatedFormGroup>
+        <AnimatedFormGroup delay="1600ms">
           <Label htmlFor="password" hidden>
             {literals.passwordLabel}
           </Label>
@@ -61,24 +69,26 @@ const ViewSignIn: React.FC = () => {
             })}
           />
           <Hint error={errors?.password?.message} />
-        </FormGroup>
-        <Hint
-          center
-          error={
-            auth?.error?.status &&
-            (auth?.error?.status === 400
-              ? literals?.errorAuth
-              : literals?.errorServer)
-          }
-        />
-        <Button
-          type="submit"
-          loading={auth.loading}
-          disabled={auth.loading}
-          minwidth
-        >
-          {literals?.submitButtonTxt}
-        </Button>
+        </AnimatedFormGroup>
+        <AnimatedFooter delay="1700ms">
+          <Hint
+            center
+            error={
+              auth?.error?.status &&
+              (auth?.error?.status === 400
+                ? literals?.errorAuth
+                : literals?.errorServer)
+            }
+          />
+          <Button
+            type="submit"
+            loading={auth.loading}
+            disabled={auth.loading}
+            minwidth
+          >
+            {literals?.submitButtonTxt}
+          </Button>
+        </AnimatedFooter>
       </Form>
       <Decoration src={decorationImg} alt="decoration" role="presentation" />
     </ViewContainer>
@@ -87,7 +97,7 @@ const ViewSignIn: React.FC = () => {
 
 export default ViewSignIn;
 
-const Logo = styled.img`
+const LogoContainer = styled.div`
   width: 14rem;
   display: block;
   margin: 0 auto 3rem auto;
@@ -106,6 +116,11 @@ const Form = styled.form`
     padding-top: 20vh;
     /* margin-top: 20vh; */
   }
+`;
+
+const AnimatedFooter = styled<any>("footer")`
+  ${ACSSStaggerFadeIn}
+  animation-delay: ${({ delay }) => delay};
 `;
 
 const Decoration = styled.img`

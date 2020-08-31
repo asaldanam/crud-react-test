@@ -1,13 +1,21 @@
 import styled from "styled-components";
 import theme from "core/theme";
-import { AFadeInOpacity } from "animations/keyframes";
+import { AFadeInOpacity, ACSSStaggerFadeIn } from "animations/animations";
 import React, { ReactNode } from "react";
 
+/** Grupo de formulario */
 export const FormGroup = styled<any>("div")`
   width: ${({ cols }) => (cols * 100) / 12 || 100}%;
   padding: ${({ sidePadding }) => `0 ${sidePadding}`};
 `;
 
+/** Form group con animación de entrada */
+export const AnimatedFormGroup = styled<any>(FormGroup)`
+  ${ACSSStaggerFadeIn}
+  animation-delay: ${({ delay }) => delay};
+`;
+
+/** Elemento de tipo Input estilizado */
 export const Input = styled.input`
   background: ${theme.color.lighter + "11"};
   width: 100%;
@@ -62,9 +70,15 @@ const StyledLabel = styled<any>("label")`
   position: ${(props) => props.hidden && "absolute"};
   width: ${(props) => props.hidden && "0%"};
   height: ${(props) => props.hidden && "0%"};
+  overflow: ${(props) => props.hidden && "hidden"};
+  margin-bottom: 0.25rem;
+  display: block;
+  font-size: 0.75rem;
+  text-transform: uppercase;
+  font-weight: 700;
 `;
 
-/** Mensajes de error e indicaciones */
+/** Elemento "label" para formularios */
 export const Label: React.FC<ILabelProps> = ({
   hidden,
   children,

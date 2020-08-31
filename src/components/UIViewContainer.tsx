@@ -3,6 +3,7 @@ import theme from "core/theme";
 import { ReactNode } from "react";
 import React from "react";
 
+/** Contenedor principal de vista */
 export const ViewContainer: React.FC<{
   children: ReactNode;
   background?: string;

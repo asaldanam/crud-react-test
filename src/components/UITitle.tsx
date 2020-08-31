@@ -2,6 +2,7 @@ import styled from "styled-components";
 import theme, { tablet } from "core/theme";
 import decorationImg from "assets/decoration.svg";
 
+/** Título de vista */
 export const Title = styled<any>("h1")`
   /* border-bottom: 1px solid var(--color-medium); */
   background-color: ${theme.color.sky};

@@ -25,19 +25,19 @@ export const SET_USERS_ERROR = "[USERS LIST] set error";
 
 /** ACTION CREATORS */
 
-/** Realiza un GET al listado de usuarios
+/** Realiza un GET al listado de usuarios @action
  * @param page página listada
  */
 export function getUsers(page?: number) {
   return { type: REQUEST_USER_DETAILS, payload: page };
 }
 
-/** Setea el listado de usuarios en el store de Redux */
+/** Setea el listado de usuarios en el store de Redux @action */
 export function setUsersList(usersList: IUsersState) {
   return { type: SET_USERS_LIST, payload: usersList };
 }
 
-/** Setea el código de error en el store de Redux */
+/** Setea el código de error en el store de Redux @action */
 export function setUsersError(error: { message: string; status: number }) {
   return { type: SET_USERS_ERROR, payload: error };
 }

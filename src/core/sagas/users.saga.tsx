@@ -6,6 +6,7 @@ import {
 import { fetchUsers } from "core/http-services";
 import { call, put, takeLatest } from "redux-saga/effects";
 
+/** Obtiene el detalle de usuario @saga */
 function* getUsersSaga(action: any) {
   try {
     const { data } = yield call(fetchUsers, action.payload);
