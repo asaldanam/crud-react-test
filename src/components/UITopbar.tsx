@@ -10,7 +10,7 @@ import { useHistory } from "react-router-dom";
 import styled from "styled-components";
 import { If } from "./UIIf";
 
-/** Fragment para renderizado condicional */
+/** Barra de navegación superior */
 export const Topbar: React.FC<{
   children?: ReactNode;
 }> = ({ children }) => {
@@ -65,7 +65,7 @@ export const Topbar: React.FC<{
 const Logo = styled.img`
   position: absolute;
   top: calc(50% - 16px);
-  transition: left 0.4s cubic-bezier(0.75, 0, 0, 0.95);
+  transition: left 0.4s ${theme.easing.inOutExpo};
   ${tablet} {
     transition: none;
     left: calc(50% - 48px) !important;

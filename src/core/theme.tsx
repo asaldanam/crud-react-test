@@ -28,6 +28,9 @@ const theme: {
     tablet: string;
     desktop: string;
   };
+  easing: {
+    inOutExpo: string;
+  };
 } = {
   wrapper: {
     main: "60rem",
@@ -57,6 +60,9 @@ const theme: {
   breakpoint: {
     tablet: "42rem", // 672px, 100%
     desktop: "82rem", // 1213px, 100%
+  },
+  easing: {
+    inOutExpo: "cubic-bezier(0.40, 0.05, 0.05, 1)",
   },
 };
 

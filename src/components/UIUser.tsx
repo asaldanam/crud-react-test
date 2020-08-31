@@ -3,8 +3,9 @@ import styled from "styled-components";
 import { Link } from "react-router-dom";
 import theme, { tablet } from "core/theme";
 import { Avatar } from "./UIAvatar";
-import { AFadeInOpacity } from "animations/keyframes";
+import { AFadeInOpacity } from "animations/animations";
 
+/** Elemento del listado de usuario */
 export const User: React.FC<{
   index: number;
   id?: number;
@@ -17,7 +18,7 @@ export const User: React.FC<{
   return (
     <LinkContainer
       to={`/users/${id}`}
-      style={{ animationDelay: 125 + index * 75 + "ms" }}
+      style={{ animationDelay: 125 + index * 50 + "ms" }}
     >
       <Container>
         <Avatar style={{ backgroundImage: `url(${avatar})` }} />
@@ -44,7 +45,7 @@ const LinkContainer = styled(Link)`
   color: inherit;
   text-decoration: none;
   opacity: 0;
-  animation: ${AFadeInOpacity} 0.3s linear forwards;
+  animation: ${AFadeInOpacity} 0.15s linear forwards;
   ${tablet} {
     padding: 0.75rem;
     background: ${theme.color.darker}AA;

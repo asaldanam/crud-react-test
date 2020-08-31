@@ -22,22 +22,22 @@ export const GET_AUTH = "[AUTH] Get token";
 
 /** ACTION CREATORS */
 
-/** Obtiene el token de autentificación y lo guarda en el store */
+/** Obtiene el token de autentificación y lo guarda en el store @action */
 export function signIn(body: IAuthTokenBody) {
   return { type: GET_AUTH, payload: body };
 }
 
-/** Setea el token en el store  */
+/** Setea el token en el store @action */
 export function setToken(token: IAuthState["token"]) {
   return { type: AUTH_SET_TOKEN, payload: token };
 }
 
-/** Setea el token en el store  */
+/** Setea el token en el store @action */
 export function setAuthError(error: { message: string; status: number }) {
   return { type: AUTH_SET_ERROR, payload: error };
 }
 
-/** Limpia el token del store y la sesión del localstorage  */
+/** Limpia el token del store y la sesión del localstorage @action */
 export function signOut() {
   window.localStorage.removeItem("token");
   return { type: AUTH_CLEAR_TOKEN, payload: undefined };
