@@ -1,4 +1,4 @@
-import React, { useRef, useEffect } from "react";
+import React, { useRef, useEffect, lazy, Suspense } from "react";
 import { useSelector } from "react-redux";
 import {
   Redirect,
@@ -7,11 +7,15 @@ import {
   Switch,
   withRouter,
 } from "react-router-dom";
-import VList from "views/VList";
-import VSignIn from "views/VSignIn";
+// import VList from "views/VList";
+// import VSignIn from "views/VSignIn";
+// import VDetail from "views/VDetail";
 import { RootState } from "./redux";
-import VDetail from "views/VDetail";
 import { Topbar } from "components/UITopbar";
+
+const VList = lazy(() => import("views/VList"));
+const VSignIn = lazy(() => import("views/VSignIn"));
+const VDetail = lazy(() => import("views/VDetail"));
 
 const Router = withRouter(({ location, history }: RouteComponentProps) => {
   // Almaceno la ruta original para en el caso de que el usuario acceda por deep link,
@@ -29,18 +33,20 @@ const Router = withRouter(({ location, history }: RouteComponentProps) => {
   return (
     <React.Fragment>
       <Topbar />
-      <Switch location={location}>
-        <RedirectRoute
-          exact
-          path={"/login"}
-          to={initialRoute.current === "/login" ? "/" : initialRoute.current}
-          component={VSignIn}
-        />
-        <PrivateRoute path={"/users/:id"} component={VDetail} />
-        <PrivateRoute exact path={"/users"} component={VList} />
-        <Redirect from={"/"} to={"/users"} exact />
-        <Redirect to="/404" />
-      </Switch>
+      <Suspense fallback={<div></div>}>
+        <Switch location={location}>
+          <RedirectRoute
+            exact
+            path={"/login"}
+            to={initialRoute.current === "/login" ? "/" : initialRoute.current}
+            component={VSignIn}
+          />
+          <PrivateRoute path={"/users/:id"} component={VDetail} />
+          <PrivateRoute exact path={"/users"} component={VList} />
+          <Redirect from={"/"} to={"/users"} exact />
+          <Redirect to="/404" />
+        </Switch>
+      </Suspense>
     </React.Fragment>
   );
 });
