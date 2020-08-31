@@ -20,8 +20,9 @@ Compila para producción en la carpeta `build`
 - `Typescript`: Para mantener el código tipado. No está tipado absolutamente todo en esta prueba, lo he usado más bien como un sustituto de PropTypes y para tipar mis propias interfaces, no las de la librería.
 - `Axios`: Para abstraer la captura de códigos de error del método `Fetch` nativo y soportar compatibilidad.
 - `React Hook Form`: Abstrae el manejo del estado de los campos.
-- `React Ripples`: Para implementar un ripple effect sin importar material ui.
+- `React Ripples`: Para implementar un ripple effect en los botones sin importar todo Material UI.
 - `Anime JS`: Para animación de SVG del logo.
+- `moment`: Para formate de fechas más sencillo y compatible que con el objeto Date() nativo.
 
 ### Características y funcionalidades implementadas adicionalmente
 - **Mantengo la sesión en el `localStorage`** para evitar que se pierda por recargar o cerrar la pestaña. La idea es que el comportamiento con el login sea lo más user friendly posible.
@@ -32,7 +33,7 @@ Compila para producción en la carpeta `build`
 
 - **He manejado el front como si integrara contra un Backend funcional**. Al borrar (por ejemplo) el back no elimina el usuario de su base de datos. Por tanto en mi prueba al regresar a "/users" el usuario eliminado sigue apareciendo ya que el endpoint lo devuelve. Mismo con actualizar y todas las operaciones.
 
-- **No se manda el token con las peticiones de listado y detalle** Esto es debido a que `reqres.in` no lo contempla en su API, es decir, el token sólo es usado para proteger las rutas en front. En un escenario real este token debería ser utilizado contra las APIs del back para verificar la autentificación correcta.
+- La prueba especifica que sin el token, no se debe tener acceso a las vistas de usuario y detalle. **He interpretado con que se refiere a proteger las rutas sólo en el Front**, ya que el back de `reqres.in` tiene todos sus endopoints abiertos y no solicita el token para ninguno. En un escenario real esto sería una violación de seguridad al poder saltar el guard de la ruta con las DevTools para acceder a las vistas protegidas.
 
 - El **token lo guardo en Redux** por unificarlo en el state manager y garantizar el flujo funcional puro que se pedía en la prueba, sin embargo para evitar un Render del Router adicional por norma general hubiera hecho una excepción con esta parte y lo hubiera manejado directamente desde el local/session Storage.
 
