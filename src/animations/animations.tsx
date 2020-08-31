@@ -31,10 +31,10 @@ export const AFadeInFromBottom = keyframes`
 `;
 
 export const AUpdateTextColor = keyframes`
-  0% {
+  from {
     color: #a7ff00;
   }
-  100% {
+  to {
     color: ${theme.color.light};
   }
 `;
