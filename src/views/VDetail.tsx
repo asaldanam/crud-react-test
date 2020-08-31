@@ -68,9 +68,7 @@ const VDetail: React.FC = () => {
             style={{
               opacity: user.loading === "fetching" ? 0 : 1,
               animation:
-                user.updatedAt && user.loading !== "updating"
-                  ? `${AUpdateTextColor.getName()} 1s linear forwards`
-                  : `none`,
+                user.updatedAt && user.loading !== "updating" ? "" : `none`,
             }}
           >
             Última actualización:{" "}
@@ -158,6 +156,7 @@ const Updated = styled.p`
   font-size: 0.875rem;
   color: ${theme.color.light};
   margin: 1rem 0 3rem 0;
+  animation: ${AUpdateTextColor} 1s linear forwards;
   ${tablet} {
     margin-top: 0rem;
   }
