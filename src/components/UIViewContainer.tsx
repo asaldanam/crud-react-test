@@ -21,10 +21,12 @@ const Container = styled.main`
   /* height: 100%; */
   max-width: ${theme.wrapper.main};
   padding: 0 ${theme.padding.mobile};
+  padding-bottom: 1rem;
 `;
 
 const Background = styled<any>("div")`
   width: 100%;
   height: 100%;
-  background: ${({ background }) => background || theme.color.dark};
+  background: ${({ background }) => background};
+  position: ${({ background }) => background && "absolute"};
 `;

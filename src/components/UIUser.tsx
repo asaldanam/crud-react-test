@@ -48,7 +48,7 @@ const LinkContainer = styled(Link)`
   animation: ${AFadeInOpacity} 0.15s linear forwards;
   ${tablet} {
     padding: 0.75rem;
-    background: ${theme.color.darker}AA;
+    background: ${theme.color.darker}44;
     border-radius: ${theme.borderRadius.main};
     transition: background 0.05s linear;
     :hover {

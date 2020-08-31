@@ -74,9 +74,9 @@ const Logo = styled.img`
 
 const Header = styled.header`
   height: 3rem;
+  background: ${theme.color.darker};
   ${tablet} {
     height: 3.5rem;
-    background: ${theme.color.medium};
   }
 `;
 
