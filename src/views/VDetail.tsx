@@ -63,7 +63,7 @@ const VDetail: React.FC = () => {
               size="7rem"
             />
           </Header>
-          <Updated style={{ opacity: user.loading ? 0 : 1 }}>
+          <Updated style={{ opacity: user.loading === "fetching" ? 0 : 1 }}>
             Última actualización:{" "}
             <FormatedDate
               date={user.updatedAt}
