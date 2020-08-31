@@ -34,6 +34,9 @@ const initialState: ILiteralsState = {
     ofTxt: "de",
   },
   VDetail: {
+    nameLabel: "Nombre",
+    surnameLabel: "Apellido",
+    emailLabel: "Correo electrónico",
     updateBtn: "Actualizar",
     deleteBtn: "Eliminar",
     lastUpdated: "Ultima actualización:",

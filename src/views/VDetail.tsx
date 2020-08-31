@@ -1,6 +1,6 @@
 import { Avatar } from "components/UIAvatar";
 import { Button } from "components/UIButton";
-import { FormGroup, Hint, Input } from "components/UIFormElements";
+import { FormGroup, Hint, Input, Label } from "components/UIFormElements";
 import { If } from "components/UIIf";
 import { Error } from "components/UIError";
 import { Title } from "components/UITitle";
@@ -13,7 +13,7 @@ import {
   requestUpdateUser,
 } from "core/stores/user-details.store";
 import theme, { tablet } from "core/theme";
-import React, { useEffect, useCallback } from "react";
+import React, { useEffect } from "react";
 import { useForm } from "react-hook-form";
 import { useDispatch, useSelector } from "react-redux";
 import { useHistory, useParams } from "react-router-dom";
@@ -72,6 +72,7 @@ const VDetail: React.FC = () => {
           </Updated>
           <Form onSubmit={form.handleSubmit(onSubmit)} autoComplete="off">
             <FormGroup cols="6" sidePadding="1rem">
+              <Label htmlFor="first_name">{literals?.nameLabel}</Label>
               <Input
                 name="first_name"
                 disabled={!!user.loading}
@@ -82,6 +83,7 @@ const VDetail: React.FC = () => {
               <Hint error={form.errors?.first_name?.message} />
             </FormGroup>
             <FormGroup cols="6" sidePadding="1rem">
+              <Label htmlFor="last_name">{literals?.surnameLabel}</Label>
               <Input
                 name="last_name"
                 disabled={!!user.loading}
@@ -92,6 +94,7 @@ const VDetail: React.FC = () => {
               <Hint error={form.errors?.last_name?.message} />
             </FormGroup>
             <FormGroup sidePadding="1rem">
+              <Label htmlFor="email">{literals?.emailLabel}</Label>
               <Input
                 name="email"
                 disabled={!!user.loading}

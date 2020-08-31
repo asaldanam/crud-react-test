@@ -4,6 +4,7 @@ import { call, put, takeLatest } from "redux-saga/effects";
 
 /** SIGN IN SAGA */
 
+/** Optiene el token @saga */
 function* signInSaga(action: any) {
   try {
     const { data } = yield call(fetchAuthToken, action.payload);

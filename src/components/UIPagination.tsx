@@ -3,7 +3,7 @@ import styled from "styled-components";
 import arrowImg from "assets/icon/navigation-arrow.svg";
 import theme, { tablet } from "core/theme";
 
-/** Fragment para renderizado condicional */
+/** Paginado de listado */
 export const Pagination: React.FC<{
   total: number;
   current: number;

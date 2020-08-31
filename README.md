@@ -4,6 +4,9 @@ This project was bootstrapped with [Create React App](https://github.com/faceboo
 Versión de Node: 12.16.1
 Versión de NPM: 6.13.4
 
+### `yarn install`
+Instalación de dependencias
+
 ### `yarn start`
 Entorno de desarrollo en [http://localhost:3000](http://localhost:3000) to view it in the browser.
 
@@ -17,6 +20,7 @@ Compila para producción en la carpeta `build`
 - `Axios`: Para abstraer la captura de códigos de error del método `Fetch` nativo y soportar compatibilidad.
 - `React Hook Form`: Abstrae el manejo del estado de los campos.
 - `React Ripples`: Para implementar un ripple effect sin importar material ui.
+- `Anime JS`: Para animación de SVG
 
 ### Características y funcionalidades implementadas adicionalmente
 - Mantengo la sesión en el `localStorage` para evitar que se pierda por recargar o cerrar la pestaña. La idea es que el comportamiento con el login sea lo más user friendly posible.

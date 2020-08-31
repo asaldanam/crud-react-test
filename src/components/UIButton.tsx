@@ -3,7 +3,7 @@ import theme from "core/theme";
 import React, { ReactNode } from "react";
 import Ripples from "react-ripples";
 import spinnerImg from "assets/spinner.svg";
-import { ARotate360 } from "animations/keyframes";
+import { ARotate360 } from "animations/animations";
 
 interface IButtonProps extends React.ButtonHTMLAttributes<HTMLButtonElement> {
   children?: ReactNode;
@@ -12,6 +12,7 @@ interface IButtonProps extends React.ButtonHTMLAttributes<HTMLButtonElement> {
   minwidth?: boolean;
 }
 
+/** Botón estilizado con efecto Ripple */
 export const Button: React.FC<IButtonProps> = ({
   children,
   loading,

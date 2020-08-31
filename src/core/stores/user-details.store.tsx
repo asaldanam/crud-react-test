@@ -33,44 +33,44 @@ export const CLEAR_USER_DETAIL = "[USER] clear details";
 
 /** ACTION CREATORS */
 
-/** Realiza un GET al detalle de usuario
+/** Realiza un GET al detalle de usuario @action
  * @param userId id del usuario
  */
 export function getUserDetails(userId: number) {
   return { type: REQUEST_USER_DETAIL, payload: userId };
 }
 
-/** Setea el detalle de usuario en el store de Redux */
+/** Setea el detalle de usuario en el store de Redux @action */
 export function setUserDetails(userDetail: IUser) {
   return { type: SET_USER_DETAIL, payload: userDetail };
 }
 
-/** Realiza el PUT al usuario */
+/** Realiza el PUT al usuario @action */
 export function requestUpdateUser(payload: IUserUpdateBody) {
   return { type: REQUEST_UPDATE_USER, payload };
 }
 
-/** Realiza el DELETE al usuario */
+/** Realiza el DELETE al usuario @action */
 export function requestDeleteUser(userId: number) {
   return { type: REQUEST_DELETE_USER, payload: userId };
 }
 
-/** Actualiza el user en el store de Redux */
+/** Actualiza el user en el store de Redux @action */
 export function updateUser(payload: IUserUpdateBody) {
   return { type: UPDATE_USER, payload };
 }
 
-/** Marca en Redux el user como borrado */
+/** Marca en Redux el user como borrado @action */
 export function deleteUser() {
   return { type: DELETE_USER };
 }
 
-/** Limpia el detalle de usuario de Redux */
+/** Limpia el detalle de usuario de Redux @action */
 export function clearUser() {
   return { type: CLEAR_USER_DETAIL };
 }
 
-/** Setea el error de detalle de usuario en el store de Redux */
+/** Setea el error de detalle de usuario en el store de Redux @action */
 export function setUserDetailsError(error: {
   message: string;
   status: number;

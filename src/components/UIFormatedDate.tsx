@@ -1,7 +1,8 @@
-import React, { ReactNode } from "react";
 import moment from "moment";
 import "moment/locale/es";
-/** Fragment para renderizado condicional */
+import React from "react";
+
+/** Formateo de fecha */
 export const FormatedDate: React.FC<{
   /** En formato ISO String */
   date?: string;
