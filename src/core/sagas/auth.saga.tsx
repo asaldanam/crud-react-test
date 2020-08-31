@@ -10,7 +10,6 @@ function* signInSaga(action: any) {
     const { data } = yield call(fetchAuthToken, action.payload);
     yield put(setToken(data.token));
   } catch (e) {
-    console.log(e.response);
     yield put(
       setAuthError({
         message: e?.response?.data?.error || "error",
