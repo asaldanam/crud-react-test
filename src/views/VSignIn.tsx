@@ -90,7 +90,7 @@ const ViewSignIn: React.FC = () => {
           </Button>
         </AnimatedFooter>
       </Form>
-      <Decoration src={decorationImg} alt="decoration" role="presentation" />
+      {/* <Decoration src={decorationImg} alt="decoration" role="presentation" /> */}
     </ViewContainer>
   );
 };
@@ -112,6 +112,9 @@ const Form = styled.form`
   width: 100%;
   padding: 3rem 1rem 0 1rem;
   padding-top: 15vh;
+  @media only screen and (max-height: 560px) {
+    padding-top: 10vh;
+  }
   ${tablet} {
     padding-top: 20vh;
     /* margin-top: 20vh; */
@@ -120,13 +123,8 @@ const Form = styled.form`
 
 const AnimatedFooter = styled<any>("footer")`
   ${ACSSStaggerFadeIn}
+  display: flex;
+  flex-flow: column;
+  align-items: center;
   animation-delay: ${({ delay }) => delay};
-`;
-
-const Decoration = styled.img`
-  position: absolute;
-  left: 0;
-  bottom: 0;
-  width: 100%;
-  opacity: 0.1;
 `;
