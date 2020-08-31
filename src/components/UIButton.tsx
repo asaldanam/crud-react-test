@@ -56,7 +56,7 @@ const StyledButton = styled<any>("button")`
   justify-content: center;
   align-items: center;
   line-height: 1.4;
-  padding: 1rem 1.25rem;
+  padding: 0rem 1.25rem;
   text-transform: uppercase;
   font-weight: 700;
   width: 100%;
@@ -64,7 +64,4 @@ const StyledButton = styled<any>("button")`
   min-width: ${({ minwidth }) => (minwidth ? "16rem" : "unset")};
   background: ${({ ghost }) => (ghost ? "transparent" : theme.color.gold)};
   color: ${({ ghost }) => (ghost ? theme.color.gold : theme.color.dark)};
-  /* border: 2px solid;
-  border-color: ${({ ghost }) =>
-    ghost ? theme.color.gold : "transparent"}; */
 `;
